@@ -102,7 +102,7 @@ cnoremap <leader>m <CR>:m''<CR>
 cnoremap <leader>M <CR>:m''<CR>ddkP
 cnoremap <leader>d <CR>:d<CR>``
 function! SaveSession()
-  :mksession! CacheDir.'/session.vim'
+  :mksession! CacheDir.'session.vim'
   :echo 'Session Saved!'
 endfunction
 
