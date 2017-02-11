@@ -535,7 +535,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Taboo
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'pluggedtaboo.vim/plugin/taboo.vim'))
+if !empty(glob(EditorDir.'plugged/taboo.vim/plugin/taboo.vim'))
   au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
   function! RenameTab()
     call inputsave()
