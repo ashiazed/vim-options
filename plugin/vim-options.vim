@@ -41,7 +41,7 @@ set statusline+=%2*\ %=\ %l/%L\ (%02p%%)\             "Rownumber/total (%)
 "-----------------------------------------------------------------------------------------------------------------------
 if has('nvim')
   let EditorDir=$HOME.'/.config/nvim/'
-  let CacheDir=$HOME.'/.vimcache/'
+  let CacheDir='./.vimcache/'
    " Create the dirs
  silent! execute '!mkdir -p '.CacheDir.'backup'
  " Set Backup dirs
