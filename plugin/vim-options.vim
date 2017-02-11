@@ -24,9 +24,6 @@ set splitbelow " Vertical  Splits go underneath
 set incsearch " Move cursor to matched string
 set hlsearch  " Turn off highlight search
 set sessionoptions+=tabpages,globals " Include tab names in sessions
-set backupdir-=.
-set backupdir+=.
-set backupdir-=~/
 set backup
 set background=dark
 set statusline=
@@ -37,53 +34,34 @@ set statusline+=%2*\«
 set statusline+=%2*\ %=\ %l/%L\ (%02p%%)\             "Rownumber/total (%)
 "-----------------------------------------------------------------------------------------------------------------------
 
+
+
 "-----------------------------------------------------------------------------------------------------------------------
-" Basic movements (h, j, k, l) require a number prefix. Break bad habits
+" Specific settings for Neovim/Vim
 "-----------------------------------------------------------------------------------------------------------------------
-function! DisableIfNonCounted(move) range
-    if v:count
-        return a:move
-    else
-        " You can make this do something annoying like:
-           " echoerr "Count required!"
-           " sleep 2
-        return ""
-    endif
-endfunction
-
-function! SetDisablingOfBasicMotionsIfNonCounted(on)
-    let keys_to_disable = get(g:, "keys_to_disable_if_not_preceded_by_count", ["j", "k", "l", "h"])
-    if a:on
-        for key in keys_to_disable
-            execute "noremap <expr> <silent> " . key . " DisableIfNonCounted('" . key . "')"
-        endfor
-        let g:keys_to_disable_if_not_preceded_by_count = keys_to_disable
-        let g:is_non_counted_basic_motions_disabled = 1
-    else
-        for key in keys_to_disable
-            try
-                execute "unmap " . key
-            catch /E31:/
-            endtry
-        endfor
-        let g:is_non_counted_basic_motions_disabled = 0
-    endif
-endfunction
-
-function! ToggleDisablingOfBasicMotionsIfNonCounted()
-    let is_disabled = get(g:, "is_non_counted_basic_motions_disabled", 0)
-    if is_disabled
-        call SetDisablingOfBasicMotionsIfNonCounted(0)
-    else
-        call SetDisablingOfBasicMotionsIfNonCounted(1)
-    endif
-endfunction
-
-command! ToggleDisablingOfNonCountedBasicMotions :call ToggleDisablingOfBasicMotionsIfNonCounted()
-command! DisableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(1)
-command! EnableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(0)
-
-DisableNonCountedBasicMotions
+if has('nvim')
+  let EditorDir=$HOME.'/.config/nvim/'
+  let CacheDir=$HOME.'/.vimcache/'
+   " Create the dirs
+ silent! execute '!mkdir -p '.CacheDir.'backup'
+ " Set Backup dirs
+ set backupdir=./.vimcache/backup/
+ set directory=./.vimcache/swp/
+ let g:ctrlp_clear_cache_on_exit = 0
+ let g:ctrlp_cache_dir = CacheDir.'ctrlp'
+ let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
+ let g:syntastic_python_python_exec = '/usr/bin/python3'
+else
+  " Vim Options
+  let EditorDir=$HOME.'/.vim/'
+  let CacheDir=$HOME.'/.vim/vim-files/'
+  set lazyredraw "Stops flashing from command above and helps save on processing
+	set backupdir=~/.vim/vim-files/backups/
+	set directory=~/.vim/vim-files/swaps/
+	let g:vimwiki_list = [{'path': '~/Wiki/wiki', 'path_html': '~/Wiki/wiki_html/', 'ext': '.markdown'}]
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+  
 
 
 "-----------------------------------------------------------------------------------------------------------------------
@@ -116,6 +94,23 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-]> <C-w><C-]>
+nnoremap <C-w>t :tabnew<CR>
+" allows incsearch highlighting for range commands
+cnoremap <leader>t <CR>:t''<CR>
+cnoremap <leader>T <CR>:t''<CR>ddkP
+cnoremap <leader>m <CR>:m''<CR>
+cnoremap <leader>M <CR>:m''<CR>ddkP
+cnoremap <leader>d <CR>:d<CR>``
+function! SaveSession()
+  :mksession! CacheDir.'/session.vim'
+  :echo 'Session Saved!'
+endfunction
+
+function! RestoreSession()
+  :source CacheDir.'session.vim'
+endfunction
+nnoremap <leader>ee :call SaveSession()<CR>
+nnoremap <leader>er :call RestoreSession()<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -127,7 +122,7 @@ au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null "
 autocmd FileType html set tabstop=2|set shiftwidth=2
 autocmd FileType htmljinja set tabstop=2|set shiftwidth=2
 autocmd FileType python set tabstop=4|set shiftwidth=4
-autocmd FileType php set tabstop=4|set shiftwidth=4
+autocmd FileType php set tabstop=4|set shiftwidth=4 noexpandtab!
 autocmd FileType sh set tabstop=4|set shiftwidth=4
 autocmd FileType make set tabstop=4|set shiftwidth=4 noexpandtab
 autocmd FileType haskell set tabstop=8|set shiftwidth=4|set softtabstop=4
@@ -139,20 +134,6 @@ au BufNewFile,BufRead *.inc set filetype=php
 au BufNewFile,BufRead *.module set filetype=php
 au BufRead,BufNewFile *.ejs set syntax=htmljinja
 au BufRead,BufNewFile *.md set filetype=markdown
-"-----------------------------------------------------------------------------------------------------------------------
-
-
-
-"-----------------------------------------------------------------------------------------------------------------------
-" Window Mappings
-"-----------------------------------------------------------------------------------------------------------------------
-nnoremap <C-w>t :tabnew<CR>
-" allows incsearch highlighting for range commands
-cnoremap <leader>t <CR>:t''<CR>
-cnoremap <leader>T <CR>:t''<CR>ddkP
-cnoremap <leader>m <CR>:m''<CR>
-cnoremap <leader>M <CR>:m''<CR>ddkP
-cnoremap <leader>d <CR>:d<CR>``
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -191,20 +172,9 @@ highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
 
 
 "-----------------------------------------------------------------------------------------------------------------------
-" Plugin Paths
-"-----------------------------------------------------------------------------------------------------------------------
-if has('nvim')
-  let EditorDir=$HOME.'/.config/nvim'
-else
-  let EditorDir=$HOME.'/.vim'
-endif
-  
-
-
-"-----------------------------------------------------------------------------------------------------------------------
 " Nerdtree Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/nerdtree/plugin/NERD_tree.vim'))
+if !empty(glob(EditorDir.'plugged/nerdtree/plugin/NERD_tree.vim'))
     nnoremap <leader>n :NERDTreeTabsToggle<CR>
     nnoremap <leader>m :NERDTreeFind<CR>
     let g:NERDTreeShowLineNumbers=1
@@ -227,7 +197,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Emmet Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/emmet-vim/plugin/emmet.vim'))
+if !empty(glob(EditorDir.'plugged/emmet-vim/plugin/emmet.vim'))
   let g:use_emmet_complete_tag = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -237,7 +207,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Indent Lines Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-indent-guides/plugin/indent_guides.vim'))
+if !empty(glob(EditorDir.'plugged/vim-indent-guides/plugin/indent_guides.vim'))
   let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_exclude_filetypes =['help', 'nerdtree']
@@ -254,7 +224,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Vdebug Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vdebug/plugin/vdebug.vim'))
+if !empty(glob(EditorDir.'plugged/vdebug/plugin/vdebug.vim'))
   let g:vdebug_options = {
   \    "watch_window_style" : 'compact',
   \    "port" : 9000,
@@ -275,7 +245,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Unite Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/unite.vim/plugin/unite.vim'))
+if !empty(glob(EditorDir.'plugged/unite.vim/plugin/unite.vim'))
   let g:unite_enable_start_insert = 1
   let g:unite_split_rule = "botright"
   let g:unite_force_overwrite_statusline = 0
@@ -314,7 +284,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " SuperTab Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/supertab/plugin/supertab.vim'))
+if !empty(glob(EditorDir.'plugged/supertab/plugin/supertab.vim'))
   let g:SuperTabMappingForward = '<tab>'
   let g:SuperTabMappingBackward = '<s-tab>'
   let g:SuperTabLongestHighlight = 0
@@ -327,7 +297,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Ultisnips
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/ultisnips/plugin/UltiSnips.vim'))
+if !empty(glob(EditorDir.'plugged/ultisnips/plugin/UltiSnips.vim'))
   let g:UltiSnipsEditSplit="vertical"
   let g:UltiSnipsListSnippets="<c-s>"
   let g:UltiSnipsExpandTrigger="<tab>"
@@ -342,7 +312,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Fugitive 
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-fugitive/plugin/fugitive.vim'))
+if !empty(glob(EditorDir.'plugged/vim-fugitive/plugin/fugitive.vim'))
   nnoremap <leader>gc :Gcommit --verbose<CR>
   nnoremap <leader>gd :Gdiff<CR>
   nnoremap <leader>gl :Glog<CR>
@@ -370,7 +340,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Python-Syntax 
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/python-syntax/syntax/python.vim'))
+if !empty(glob(EditorDir.'plugged/python-syntax/syntax/python.vim'))
   let python_highlight_all = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -380,8 +350,9 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " CtrlP Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/ctrlp.vim/plugin/ctrlp.vim'))
+if !empty(glob(EditorDir.'plugged/ctrlp.vim/plugin/ctrlp.vim'))
   let g:ctrlp_working_path_mode = 'a'
+  let g:ctrlp_map = '<Space>p'
   let g:ctrlp_status_func = {
     \ 'main': 'CtrlP_main_status',
     \ 'prog': 'CtrlP_progress_status',
@@ -414,7 +385,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Markdown
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-markdown/indent/markdown.vim'))
+if !empty(glob(EditorDir.'plugged/vim-markdown/indent/markdown.vim'))
   let g:vim_markdown_folding_disabled=1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -424,7 +395,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Dev-icons
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-devicons/plugin/webdevicons.vim'))
+if !empty(glob(EditorDir.'plugged/vim-devicons/plugin/webdevicons.vim'))
   let g:webdevicons_enable_nerdtree = 1
   let g:webdevicons_enable = 1
   let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
@@ -438,7 +409,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Dash
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/dash.vim/plugin/dash.vim'))
+if !empty(glob(EditorDir.'plugged/dash.vim/plugin/dash.vim'))
   nnoremap K :Dash<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -448,7 +419,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Deoplete
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/deoplete.nvim/plugin/deoplete.vim'))
+if !empty(glob(EditorDir.'plugged/deoplete.nvim/plugin/deoplete.vim'))
   let g:deoplete#enable_at_startup = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -458,7 +429,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " CamelCaseMotion
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/CamelCaseMotion/plugin/camelcasemotion.vim'))
+if !empty(glob(EditorDir.'plugged/CamelCaseMotion/plugin/camelcasemotion.vim'))
   map <silent> ,w <Plug>CamelCaseMotion_w
   map <silent> ,e <Plug>CamelCaseMotion_e
   map <silent> ,b <Plug>CamelCaseMotion_b
@@ -470,7 +441,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Vim JSON
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-json/indent/json.vim'))
+if !empty(glob(EditorDir.'plugged/vim-json/indent/json.vim'))
   let g:vim_json_syntax_conceal = 0
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -480,7 +451,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Ack Searching
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/ack.vim/plugin/ack.vim'))
+if !empty(glob(EditorDir.'plugged/ack.vim/plugin/ack.vim'))
   nnoremap <space>/ :call AckSearch()<CR>
   function! AckSearch()
     call inputsave()
@@ -498,7 +469,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Syntastic
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/syntastic/plugin/syntastic.vim'))
+if !empty(glob(EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_php_checkers = ['php', 'phpcs']
   let g:syntastic_php_phpcs_args = "--standard=".$HOME."/PEARish.xml,PSR2,Symfony2"
   let g:syntastic_javascript_checkers = ['eslint']
@@ -529,7 +500,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Toggle List
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/vim-togglelist/plugin/togglelist.vim'))
+if !empty(glob(EditorDir.'plugged/vim-togglelist/plugin/togglelist.vim'))
   noremap <leader>[ :lprevious<CR>
   noremap <leader>] :lnext<CR>
   noremap <leader>p :ll<CR>
@@ -544,7 +515,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " SimplyFold
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'/plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
+if !empty(glob(EditorDir.'plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
   let g:SimpylFold_docstring_preview = 1
   " Needed for some issues
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
@@ -552,3 +523,77 @@ if !empty(glob(EditorDir.'/plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
   nnoremap <space>a za
 endif
 "-----------------------------------------------------------------------------------------------------------------------
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Ledger
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob(EditorDir.'plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
+  au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Taboo
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob(EditorDir.'pluggedtaboo.vim/plugin/taboo.vim'))
+  au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
+  function! RenameTab()
+    call inputsave()
+    let term = input('Tabname: ')
+    call inputrestore()
+    if !empty(term)
+      execute ":TabooRename " . term
+    endif
+  endfunction
+  nnoremap <leader>r :call RenameTab()<CR>
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Basic movements (h, j, k, l) require a number prefix. Break bad habits
+"-----------------------------------------------------------------------------------------------------------------------
+function! DisableIfNonCounted(move) range
+  if v:count
+    return a:move
+  else
+    " You can make this do something annoying like:
+    " echoerr "Count required!"
+    " sleep 2
+    return ""
+  endif
+endfunction
+
+function! SetDisablingOfBasicMotionsIfNonCounted(on)
+  let keys_to_disable = get(g:, "keys_to_disable_if_not_preceded_by_count", ["j", "k", "l", "h"])
+  if a:on
+    for key in keys_to_disable
+      execute "noremap <expr> <silent> " . key . " DisableIfNonCounted('" . key . "')"
+    endfor
+    let g:keys_to_disable_if_not_preceded_by_count = keys_to_disable
+    let g:is_non_counted_basic_motions_disabled = 1
+  else
+    for key in keys_to_disable
+      try
+        execute "unmap " . key
+      catch /E31:/
+      endtry
+    endfor
+    let g:is_non_counted_basic_motions_disabled = 0
+  endif
+endfunction
+
+function! ToggleDisablingOfBasicMotionsIfNonCounted()
+  let is_disabled = get(g:, "is_non_counted_basic_motions_disabled", 0)
+  if is_disabled
+    call SetDisablingOfBasicMotionsIfNonCounted(0)
+  else
+    call SetDisablingOfBasicMotionsIfNonCounted(1)
+  endif
+endfunction
+
+command! ToggleDisablingOfNonCountedBasicMotions :call ToggleDisablingOfBasicMotionsIfNonCounted()
+command! DisableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(1)
+command! EnableNonCountedBasicMotions :call SetDisablingOfBasicMotionsIfNonCounted(0)
+
+" Call this function to enable God Mode
+"DisableNonCountedBasicMotions
