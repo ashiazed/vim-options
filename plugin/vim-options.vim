@@ -45,8 +45,8 @@ if has('nvim')
    " Create the dirs
  silent! execute '!mkdir -p '.CacheDir.'backup'
  " Set Backup dirs
- set backupdir=./.vimcache/backup/
- set directory=./.vimcache/swp/
+ set backupdir=.vimcache/backup/
+ set directory=.vimcache/swp/
  let g:ctrlp_clear_cache_on_exit = 0
  let g:ctrlp_cache_dir = CacheDir.'ctrlp'
  let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
