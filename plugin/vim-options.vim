@@ -157,7 +157,7 @@ nnoremap = ]c
 " Ack Searching
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob(EditorDir.'plugged/ack.vim/plugin/ack.vim'))
-  nnoremap <space>/ :call AckSearch()<CR>
+  nnoremap <leader>/ :call AckSearch()<CR>
   function! AckSearch()
     call inputsave()
     let term = input('Search: ')
