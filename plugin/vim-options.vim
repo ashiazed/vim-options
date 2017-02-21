@@ -119,7 +119,7 @@ function! CleverTab()
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 " Ctags for python project
-command! MakeTagsPython !ctags --languages=python -R .
+command! MakeTagsPython !ctags --languages=python --python-kinds=-i -R .
 " Command for figuring out highlight group
 map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 " Turn off syntax highlighting
