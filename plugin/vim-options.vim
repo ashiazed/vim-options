@@ -198,7 +198,7 @@ if !empty(glob(EditorDir.'plugged/vim-fugitive/plugin/fugitive.vim'))
   command ToggleGStatus :call ToggleGStatus()
   nnoremap <leader>gs :ToggleGStatus<CR>
   nnoremap <leader>gc :Gcommit --verbose<CR>
-  nnoremap <leader>gd :Gdiff --verbose<CR>
+  nnoremap <leader>gd :Gdiff<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
