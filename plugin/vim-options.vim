@@ -251,6 +251,37 @@ endif
 
 
 "-----------------------------------------------------------------------------------------------------------------------
+" Syntastic
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob(EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
+  let g:syntastic_php_checkers = ['php', 'phpcs']
+  let g:syntastic_php_phpcs_args = "--standard=".$HOME."/PEARish.xml,PSR2,Symfony2"
+  let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 1
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_mode_map = { 'mode': 'active' }
+  function! ToggleSyntasticMode()
+python << EOF
+import vim
+import ast
+value = dict(vim.eval('g:syntastic_mode_map'))
+vim.command('let l:syntastic_current_mode = \''+value['mode']+'\'')
+EOF
+    SyntasticToggleMode
+    if l:syntastic_current_mode == 'passive'
+      SyntasticCheck
+    endif
+  endfunction
+  nnoremap <leader>s :call ToggleSyntasticMode()<CR>
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
 " Taboo
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob(EditorDir.'plugged/taboo.vim/plugin/taboo.vim'))
