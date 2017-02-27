@@ -35,6 +35,7 @@ autocmd FileType htmljinja setlocal tabstop=2
 autocmd FileType php setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType sh setlocal tabstop=4
+autocmd FileType javascript setlocal tabstop=4
 autocmd FileType make setlocal tabstop=4 noexpandtab
 " Make netrw prettier
 let g:netrw_banner = 0  " Hide the banner
