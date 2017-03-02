@@ -1,5 +1,5 @@
- class jump(jump):
-     """jump
+class jump(jump):
+    """jump
 
-     jump
-     """
+    jump
+    """
