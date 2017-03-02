@@ -151,6 +151,8 @@ nnoremap <leader>dd :diffget<CR>
 nnoremap <leader>df :diffput<CR>
 nnoremap _ [c
 nnoremap = ]c
+" Open folder of current file
+nnoremap <leader>n :e %:p:h<CR>
 " Snippets
 nnoremap <leader>,date :-1read !date +\%F<CR>
 nnoremap <leader>,fabfile :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/fabfile.py<CR>
