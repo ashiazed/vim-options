@@ -38,6 +38,7 @@ autocmd FileType sh setlocal tabstop=4
 autocmd FileType javascript setlocal tabstop=4
 autocmd FileType json setlocal tabstop=4
 autocmd FileType make setlocal tabstop=4 noexpandtab
+autocmd FileType scss setlocal tabstop=2
 " Make netrw prettier
 let g:netrw_banner = 0  " Hide the banner
 let g:netrw_liststyle = 3     " Tree view
@@ -267,8 +268,9 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob(EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_php_checkers = ['php', 'phpcs']
-  let g:syntastic_php_phpcs_args = "--standard=".$HOME."/PEARish.xml,PSR2,Symfony2"
   let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_scss_checkers = ['sass_lint']
+  let g:syntastic_php_phpcs_args = "--standard=".$HOME."/PEARish.xml,PSR2,Symfony2"
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 0
   let g:syntastic_check_on_open = 1
