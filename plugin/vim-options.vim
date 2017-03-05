@@ -39,6 +39,7 @@ autocmd FileType javascript setlocal tabstop=4
 autocmd FileType json setlocal tabstop=4
 autocmd FileType make setlocal tabstop=4 noexpandtab
 autocmd FileType scss setlocal tabstop=2
+autocmd FileType ledger setlocal tabstop=2
 " Make netrw prettier
 let g:netrw_banner = 0  " Hide the banner
 let g:netrw_liststyle = 3     " Tree view
