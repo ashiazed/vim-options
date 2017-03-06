@@ -32,6 +32,7 @@ set statusline+=%2*\ %=\ %l/%L\ (%02p%%)\     " Rownumber/total (%)
 " Set spacing of file types
 autocmd FileType html setlocal tabstop=2
 autocmd FileType htmljinja setlocal tabstop=2
+autocmd FileType htmldjango setlocal tabstop=2
 autocmd FileType php setlocal tabstop=4
 autocmd FileType python setlocal tabstop=4
 autocmd FileType sh setlocal tabstop=4
