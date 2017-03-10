@@ -10,3 +10,4 @@ def jump(jump):
     Return:
         jump_type: jump_desc
     """
+    pass

@@ -162,7 +162,7 @@ nnoremap <leader>,date :-1read !date +\%F<CR>
 nnoremap <leader>,fabfile :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/fabfile.py<CR>
 nnoremap <leader>,cutf8 :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/cutf8.py<CR>jf.i
 nnoremap <leader>,pudb :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pudb.py<CR>V
-nnoremap <leader>,pydef :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V11j
+nnoremap <leader>,pydef :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
 nnoremap <leader>,pyclass :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 

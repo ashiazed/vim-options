@@ -3,3 +3,4 @@ class jump(jump):
 
     jump
     """
+    pass
