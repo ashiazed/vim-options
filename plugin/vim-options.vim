@@ -22,6 +22,7 @@ set wildmode=list:longest,full " wildmenu show list and completes longest, secon
 set splitright " New windows split to the right of current one
 set splitbelow " New windows split below the current one
 set sessionoptions+=globals " Append globals to the default session options
+set foldmethod=indent " Fold on Indent levels
 " Custom status line
 set statusline=
 set statusline+=%1*\ %02c\                    " Color
