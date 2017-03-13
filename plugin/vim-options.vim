@@ -95,7 +95,8 @@ highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
 " Vim vs Neovim settings
 "-----------------------------------------------------------------------------------------------------------------------
 if has('nvim')
-  let EditorDir=$HOME.'/.config/nvim/'
+  let $HOME='.vimcache'
+  let EditorDir='/root/.config/nvim/'
 	silent! execute '!mkdir -p .vimcache/backup'
 	" Set Backup dirs
 	set backupdir=.vimcache/backup/
