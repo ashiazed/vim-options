@@ -101,6 +101,17 @@ if has('nvim')
 	set backupdir=.vimcache/backup/
 	set directory=.vimcache/swp/
   let g:syntastic_python_python_exec = '/usr/bin/python3'
+  " Function for saving session
+  function! SaveSession()
+    :mksession! .vimcache/session.vim
+    :echo 'Session Saved!'
+  endfunction
+  nnoremap <leader>ee :call SaveSession()<CR>
+  " Function for restoring session
+  function! RestoreSession()
+    :source .vimcache/session.vim
+  endfunction
+  nnoremap <leader>er :call RestoreSession()<CR>
 else
   " Vim Options
   let EditorDir=$HOME.'/.vim/'
@@ -138,17 +149,6 @@ com! Formatjson %!python -m json.tool
 nnoremap gp `[v`]
 " Yank withouth newline
 nmap yY ^y$$
-" Function for saving session
-function! SaveSession()
-  :mksession! 'session.vim'
-  :echo 'Session Saved!'
-endfunction
-nnoremap <leader>ee :call SaveSession()<CR>
-" Function for restoring session
-function! RestoreSession()
-  :source 'session.vim'
-endfunction
-nnoremap <leader>er :call RestoreSession()<CR>
 " Vimdiff commands
 nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dd :diffget<CR>
