@@ -42,6 +42,7 @@ autocmd FileType json setlocal tabstop=4
 autocmd FileType make setlocal tabstop=4 noexpandtab
 autocmd FileType scss setlocal tabstop=2
 autocmd FileType ledger setlocal tabstop=2
+autocmd FileType vim setlocal tabstop=2
 " Make netrw prettier
 let g:netrw_banner = 0  " Hide the banner
 let g:netrw_liststyle = 3     " Tree view
@@ -96,26 +97,17 @@ highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
 "-----------------------------------------------------------------------------------------------------------------------
 if has('nvim')
   let $HOME='.vimcache'
-  let EditorDir='/root/.config/nvim/'
+  let $EditorDir='/root/.config/nvim/'
+  let $SessionDir='.vimcache'
 	silent! execute '!mkdir -p .vimcache/backup'
 	" Set Backup dirs
 	set backupdir=.vimcache/backup/
 	set directory=.vimcache/swp/
   let g:syntastic_python_python_exec = '/usr/bin/python3'
-  " Function for saving session
-  function! SaveSession()
-    :mksession! .vimcache/session.vim
-    :echo 'Session Saved!'
-  endfunction
-  nnoremap <leader>ee :call SaveSession()<CR>
-  " Function for restoring session
-  function! RestoreSession()
-    :source .vimcache/session.vim
-  endfunction
   nnoremap <leader>er :call RestoreSession()<CR>
 else
-  " Vim Options
-  let EditorDir=$HOME.'/.vim/'
+  let $EditorDir=$HOME.'/.vim/'
+  let $SessionDir='.'
 	" Set Backup dirs
   set backupdir=~/.vim/vim-files/backups/
   set directory=~/.vim/vim-files/swaps/
@@ -158,13 +150,23 @@ nnoremap _ [c
 nnoremap = ]c
 " Open folder of current file
 nnoremap <leader>n :e %:p:h<CR>
+" Function for saving session
+function! SaveSession()
+  :mksession! $SessionDir/session.vim
+  :echo 'Session Saved!'
+endfunction
+nnoremap <leader>ee :call SaveSession()<CR>
+" Function for restoring session
+function! RestoreSession()
+  :source $SessionDir/session.vim
+endfunction
 " Snippets
 nnoremap <leader>,date :-1read !date +\%F<CR>
-nnoremap <leader>,fabfile :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/fabfile.py<CR>
-nnoremap <leader>,cutf8 :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/cutf8.py<CR>jf.i
-nnoremap <leader>,pudb :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pudb.py<CR>V
-nnoremap <leader>,pydef :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
-nnoremap <leader>,pyclass :-1read $HOME/.config/nvim/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
+nnoremap <leader>,fabfile :-1read $EditorDir/plugged/vim-options/snippets/python/fabfile.py<CR>
+nnoremap <leader>,cutf8 :-1read $EditorDir/plugged/vim-options/snippets/python/cutf8.py<CR>jf.i
+nnoremap <leader>,pudb :-1read $EditorDir/plugged/vim-options/snippets/python/pudb.py<CR>V
+nnoremap <leader>,pydef :-1read $EditorDir/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
+nnoremap <leader>,pyclass :-1read $EditorDir/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -172,7 +174,7 @@ nnoremap <leader>,pyclass :-1read $HOME/.config/nvim/plugged/vim-options/snippet
 "-----------------------------------------------------------------------------------------------------------------------
 " Ack Searching
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/ack.vim/plugin/ack.vim'))
+if !empty(glob($EditorDir.'plugged/ack.vim/plugin/ack.vim'))
   nnoremap <leader>/ :call AckSearch()<CR>
   function! AckSearch()
     call inputsave()
@@ -190,7 +192,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " CamelCaseMotion
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/CamelCaseMotion/plugin/camelcasemotion.vim'))
+if !empty(glob($EditorDir.'plugged/CamelCaseMotion/plugin/camelcasemotion.vim'))
   map <silent> ,w <Plug>CamelCaseMotion_w
   map <silent> ,e <Plug>CamelCaseMotion_e
   map <silent> ,b <Plug>CamelCaseMotion_b
@@ -202,7 +204,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Fugitive
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/vim-fugitive/plugin/fugitive.vim'))
+if !empty(glob($EditorDir.'plugged/vim-fugitive/plugin/fugitive.vim'))
 	" Command for toggling git status
   function! ToggleGStatus()
     if buflisted(bufname('.git/index'))
@@ -223,7 +225,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Indent Lines Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/vim-indent-guides/plugin/indent_guides.vim'))
+if !empty(glob($EditorDir.'plugged/vim-indent-guides/plugin/indent_guides.vim'))
   let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_exclude_filetypes =['help', 'nerdtree']
@@ -240,7 +242,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Ledger
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
+if !empty(glob($EditorDir.'plugged/SimpylFold/ftplugin/python/SimpylFold.vim'))
   au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -250,7 +252,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Markdown
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/vim-markdown/indent/markdown.vim'))
+if !empty(glob($EditorDir.'plugged/vim-markdown/indent/markdown.vim'))
   let g:vim_markdown_folding_disabled=1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -260,7 +262,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Python-Syntax 
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/python-syntax/syntax/python.vim'))
+if !empty(glob($EditorDir.'plugged/python-syntax/syntax/python.vim'))
   let python_highlight_all = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
@@ -270,7 +272,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Syntastic
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
+if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_php_checkers = ['php', 'phpcs']
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_scss_checkers = ['sass_lint']
@@ -302,7 +304,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Taboo
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/taboo.vim/plugin/taboo.vim'))
+if !empty(glob($EditorDir.'plugged/taboo.vim/plugin/taboo.vim'))
   au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
   function! RenameTab()
     call inputsave()
@@ -321,7 +323,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Vdebug Plugin
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/vdebug/plugin/vdebug.vim'))
+if !empty(glob($EditorDir.'plugged/vdebug/plugin/vdebug.vim'))
   let g:vdebug_options = {
   \    "watch_window_style" : 'compact',
   \    "port" : 9000,
@@ -339,7 +341,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Vim JSON
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob(EditorDir.'plugged/vim-json/indent/json.vim'))
+if !empty(glob($EditorDir.'plugged/vim-json/indent/json.vim'))
   let g:vim_json_syntax_conceal = 0
 endif
 "-----------------------------------------------------------------------------------------------------------------------
