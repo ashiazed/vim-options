@@ -12,6 +12,7 @@ set hlsearch " After a '/' search, highlight the matches
 set path=** " Set path to look at all directories under current root
 set wildignore=*/app/cache,*/vendor,*/env,*.pyc,*/venv,*/__pycache__ " Wildmenu will ignore these folder/file types
 set expandtab " Expand tabs into spaces
+set tabstop=4 " Default to 4 spaces
 set shiftwidth=0 " Make shiftwidth value the same as tabstop
 set history=1000 " Set number of ':' commands
 set relativenumber " Use relative numbers in the sidebar
