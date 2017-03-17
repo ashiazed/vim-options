@@ -88,6 +88,11 @@ hi User3 ctermfg=229  ctermbg=108
 hi User2 ctermfg=229  ctermbg=66
 " Change gutter color
 highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
+" Highlight long lines at 80 mark
+highlight ColorColumn ctermbg=cyan
+call matchadd('ColorColumn', '\%81v', 100)
+" Highlight super long lines
+call matchadd('Error', '\%121v', 100)
 "-----------------------------------------------------------------------------------------------------------------------
 
 
