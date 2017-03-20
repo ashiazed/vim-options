@@ -91,9 +91,9 @@ hi User2 ctermfg=229  ctermbg=66
 highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
 " Highlight long lines at 80 mark
 highlight ColorColumn ctermbg=cyan
-call matchadd('ColorColumn', '\%81v', 100)
+au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
 " Highlight super long lines
-call matchadd('Error', '\%121v', 100)
+au BufNewFile,BufRead * call matchadd('Error', '\%121v', 100)
 "-----------------------------------------------------------------------------------------------------------------------
 
 
