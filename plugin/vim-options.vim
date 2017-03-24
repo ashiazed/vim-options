@@ -166,6 +166,15 @@ nnoremap <leader>ee :call SaveSession()<CR>
 function! RestoreSession()
   :source $SessionDir/session.vim
 endfunction
+" Some very useful shortcuts for editing Ledger entries
+" Copy the last entry
+nnoremap <leader>ll G{jV}y}p10lC
+" Copy the current entry to the bottom
+nnoremap <leader>lb {jV}yGp10lC
+" Copy the current entry to the next position
+nnoremap <leader>ln {jV}y}p10lC
+" Jump down from line to replace dollar ammount
+nnoremap <leader>ld j^f$lC
 " Snippets
 nnoremap <leader>,date :-1read !date +\%F<CR>
 nnoremap <leader>,fabfile :-1read $EditorDir/plugged/vim-options/snippets/python/fabfile.py<CR>
