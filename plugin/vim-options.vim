@@ -275,6 +275,28 @@ endif
 
 
 "-----------------------------------------------------------------------------------------------------------------------
+" Nerdtree Plugin
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/nerdtree/plugin/NERD_tree.vim'))
+  " Disable ? do I can fucking reverse search
+  :autocmd FileType nerdtree silent! nunmap <buffer> ?
+	let g:NERDTreeShowLineNumbers=1
+	let g:NERDTreeDirArrows=0
+	let g:NERDTreeWinSize = 40
+	let g:NERDTreeIgnore = ['\.pyc$']
+	let g:NERDTreeDirArrows = 1
+	let g:NERDTreeDirArrowExpandable = '▸'
+	let g:NERDTreeDirArrowCollapsible = '▾'
+	let g:NERDTreeMapOpenSplit = 's'
+	let g:NERDTreeMapPreviewSplit = 'gs'
+	let g:NERDTreeMapOpenVSplit = 'v'
+	let g:NERDTreeMapPreviewVSplit = 'gv'
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+ 
+
+
+"-----------------------------------------------------------------------------------------------------------------------
 " Markdown
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/vim-markdown/indent/markdown.vim'))
