@@ -4,6 +4,7 @@
 filetype plugin on " Enable default plugins
 let mapleader="\<Space>"
 " Vim options that neovim has turned on but vim has off/ignores
+set backspace=indent,eol,start
 set nocompatible " Vim is non-compatible with vi. Neovim ignores this
 set wildmenu " Turn on wildmenu for vim, Neovim defaults to on
 set incsearch " Shows results for '/' search as you are typing the search
