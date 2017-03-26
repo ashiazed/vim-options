@@ -118,7 +118,7 @@ else
 	" Set Backup dirs
   set backupdir=~/.vim/vim-files/backups/
   set directory=~/.vim/vim-files/swaps/
-  let g:vimwiki_list = [{'path': '~/Wiki/wiki', 'path_html': '~/Wiki/wiki_html/', 'ext': '.markdown'}]
+  let g:vimwiki_list = [{'path': '~/Wiki/wiki', 'path_html': '~/Wiki/wiki_html/', 'ext': '.wiki'}]
 endif
 
 
