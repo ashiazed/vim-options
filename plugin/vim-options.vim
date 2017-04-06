@@ -95,6 +95,8 @@ highlight ColorColumn ctermbg=cyan
 au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
 " Highlight super long lines
 au BufNewFile,BufRead * call matchadd('Error', '\%121v', 100)
+" Disable background colors for transparency
+hi Normal guibg=NONE ctermbg=NONE
 "-----------------------------------------------------------------------------------------------------------------------
 
 
