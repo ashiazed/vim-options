@@ -85,9 +85,9 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " Highligh current cursorline
 hi CursorLineNR cterm=bold ctermfg=226
 " Status line colors  per mode 
-hi User1 ctermfg=229  ctermbg=66 cterm=bold
-hi User3 ctermfg=229  ctermbg=108
-hi User2 ctermfg=229  ctermbg=66
+hi User1 ctermfg=NONE  ctermbg=NONE cterm=bold
+hi User3 ctermfg=NONE  ctermbg=NONE
+hi User2 ctermfg=NONE  ctermbg=NONE
 " Change gutter color
 highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
 " Highlight long lines at 80 mark
