@@ -171,11 +171,11 @@ function! RestoreSession()
 endfunction
 " Some very useful shortcuts for editing Ledger entries
 " Copy the last entry
-nnoremap <leader>ll G{jV}y}p10lC
+nnoremap <leader>ll G{jV}y}p10l
 " Copy the current entry to the bottom
-nnoremap <leader>lb {jV}yGp10lC
+nnoremap <leader>lb {jV}yGp10l
 " Copy the current entry to the next position
-nnoremap <leader>ln {jV}y}p10lC
+nnoremap <leader>ln {jV}y}p10l
 " Jump down from line to replace dollar ammount
 nnoremap <leader>ld j^f$lC
 " Snippets
