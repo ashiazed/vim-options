@@ -172,8 +172,8 @@ endfunction
 " Some very useful shortcuts for editing Ledger entries
 " Copy the last entry
 nnoremap <leader>ll G{jV}y}p10l
-" Copy the current entry to the bottom
-nnoremap <leader>lb {jV}yGp10l
+" Copy the current entry to the bottom, copy date from last entry
+nnoremap <leader>lb {jV}yGp10l{{jvEy}jvEpl
 " Copy the current entry to the next position
 nnoremap <leader>ln {jV}y}p10l
 " Jump down from line to replace dollar ammount
