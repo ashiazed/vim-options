@@ -139,6 +139,8 @@ endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 " type jj to get out of insert mode
 inoremap jj <ESC>
+" Quick saving
+nnoremap <leader>w :w<CR>
 " Ctags for python project
 command! MakeTagsPython !ctags --languages=python --python-kinds=-i -R .
 " Command for figuring out highlight group
