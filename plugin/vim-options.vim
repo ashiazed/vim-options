@@ -141,6 +141,8 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 inoremap jj <ESC>
 " Quick saving
 nnoremap <leader>w :w<CR>
+" Quick quiting
+nnoremap <leader>q :q<CR>
 " Ctags for python project
 command! MakeTagsPython !ctags --languages=python --python-kinds=-i -R .
 " Command for figuring out highlight group
