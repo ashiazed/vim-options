@@ -114,6 +114,7 @@ if has('nvim')
 	set directory=.vimcache/swp/
   let g:syntastic_python_python_exec = '/usr/bin/python3'
   nnoremap <leader>er :call RestoreSession()<CR>
+  nnoremap <leader>y :call system('nc -w 1 172.17.0.1 41401', @0)<CR>
 else
   let $EditorDir=$HOME.'/.vim/'
   let $SessionDir='.'
@@ -121,6 +122,7 @@ else
   set backupdir=~/.vim/vim-files/backups/
   set directory=~/.vim/vim-files/swaps/
   let g:vimwiki_list = [{'path': '~/Wiki/wiki', 'path_html': '~/Wiki/wiki_html/', 'ext': '.wiki'}]
+  nnoremap <leader>y :call system('nc -w 1 localhost 41401', @0)<CR>
 endif
 
 
@@ -175,6 +177,8 @@ nnoremap <leader>ee :call SaveSession()<CR>
 function! RestoreSession()
   :source $SessionDir/session.vim
 endfunction
+" Functions for deleting, changing, yanking 'in-line'
+nnoremap <leader>v ^v$h
 " Some very useful shortcuts for editing Ledger entries
 " Copy the last entry
 nnoremap <leader>ll G{jV}y}p10l
