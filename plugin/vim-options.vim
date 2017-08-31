@@ -19,7 +19,6 @@ set history=1000 " Set number of ':' commands
 set relativenumber " Use relative numbers in the sidebar
 set number " Show line numbers in side bar
 set nowrap " Turn off text wrapping long lines
-set completeopt=menu,preview,noinsert " default is menu,preview. Don't insert text until selection is made
 set wildmode=list:longest,full " wildmenu show list and completes longest, second tab completes full and cycles
 set splitright " New windows split to the right of current one
 set splitbelow " New windows split below the current one
@@ -113,6 +112,7 @@ if has('nvim')
 	set backupdir=.vimcache/backup/
 	set directory=.vimcache/swp/
   let g:syntastic_python_python_exec = '/usr/bin/python3'
+  set completeopt=menu,preview,noinsert " default is menu,preview. Don't insert text until selection is made
   nnoremap <leader>er :call RestoreSession()<CR>
   nnoremap <leader>y :call system('nc -w 1 172.17.0.1 41401', @0)<CR>
 else
