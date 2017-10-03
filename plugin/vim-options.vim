@@ -19,7 +19,7 @@ set history=1000 " Set number of ':' commands
 set relativenumber " Use relative numbers in the sidebar
 set number " Show line numbers in side bar
 set nowrap " Turn off text wrapping long lines
-set wildmode=list:longest,full " wildmenu show list and completes longest, second tab completes full and cycles
+set wildmode=list:full " wildmenu show list complete to first result
 set splitright " New windows split to the right of current one
 set splitbelow " New windows split below the current one
 set sessionoptions+=globals " Append globals to the default session options
