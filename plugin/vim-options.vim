@@ -153,6 +153,9 @@ map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 nnoremap <leader><leader> :noh<CR>
 " Shortcut for creating a new tab
 nnoremap <C-w>t :tabnew<CR>
+" Shortcuts for creating windows
+nnoremap <leader>s :vsplit<CR>
+nnoremap <leader>j :split<CR>
 " Formating a json file
 com! Formatjson %!python -m json.tool
 " Visually select pasted text
@@ -167,6 +170,8 @@ nnoremap _ [c
 nnoremap = ]c
 " Open folder of current file
 nnoremap <leader>n :e %:p:h<CR>
+" Open NERDTree
+nnoremap <leader>d :e.<CR>
 " Function for saving session
 function! SaveSession()
   :mksession! $SessionDir/session.vim
@@ -360,7 +365,7 @@ EOF
       let g:syntastic_check_on_open = 1
     endif
   endfunction
-  nnoremap <leader>s :call ToggleSyntasticMode()<CR>
+  nnoremap <leader>a :call ToggleSyntasticMode()<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -408,6 +413,42 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/vim-json/indent/json.vim'))
   let g:vim_json_syntax_conceal = 0
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Vim EasyMotion Incsearch
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/incsearch-easymotion.vim/plugin/incsearch/easymotion.vim'))
+  " You can use other keymappings like <C-l> instead of <CR> if you want to
+  " use these mappings as default search and somtimes want to move cursor with
+  " EasyMotion.
+  function! s:incsearch_config(...) abort
+    return incsearch#util#deepextend(deepcopy({
+    \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+    \   'keymap': {
+    \     "\<C-l>": '<Over>(easymotion)'
+    \   },
+    \   'is_expr': 0
+    \ }), get(a:, 1, {}))
+  endfunction
+  noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+  noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+  noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Vim EasyMotion
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/vim-easymotion/autoload/EasyMotion.vim'))
+  " <Leader>f{char} to move to {char}{char}
+  map  <Leader>f <Plug>(easymotion-bd-f2)
+  nmap <Leader>f <Plug>(easymotion-overwin-f2)
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
