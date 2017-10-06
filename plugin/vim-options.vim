@@ -88,7 +88,7 @@ hi User1 ctermfg=NONE  ctermbg=NONE cterm=bold
 hi User3 ctermfg=NONE  ctermbg=NONE
 hi User2 ctermfg=NONE  ctermbg=NONE
 " Change gutter color
-highlight SignColumn cterm=NONE ctermfg=0 ctermbg=8
+highlight SignColumn cterm=NONE ctermfg=0 ctermbg=None
 " Highlight long lines at 80 mark
 highlight ColorColumn ctermbg=cyan
 au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
@@ -340,6 +340,7 @@ endif
 if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_php_checkers = ['php', 'phpcs']
   let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_python_checkers = ['pyton3', 'flake8', 'mypy']
   let g:syntastic_scss_checkers = ['sass_lint']
   let g:syntastic_php_phpcs_args = "--standard=/root/PEARish.xml,PSR2,Symfony2"
   let g:syntastic_always_populate_loc_list = 1
@@ -443,12 +444,24 @@ endif
 
 
 "-----------------------------------------------------------------------------------------------------------------------
-" Vim EasyMotion
+" EasyMotion
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/vim-easymotion/autoload/EasyMotion.vim'))
   " <Leader>f{char} to move to {char}{char}
   map  <Leader>f <Plug>(easymotion-bd-f2)
   nmap <Leader>f <Plug>(easymotion-overwin-f2)
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Ale
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/ale/autoload/ale.vim'))
+  let g:ale_sign_column_always = 1
+  highlight clear ALEErrorSign
+  highlight clear ALEWarningSign
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
