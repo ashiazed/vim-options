@@ -141,21 +141,16 @@ endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 " type jj to get out of insert mode
 inoremap jj <ESC>
-" Quick saving
-nnoremap <leader>w :w<CR>
-" Quick quiting
-nnoremap <leader>q :q<CR>
 " Ctags for python project
 command! MakeTagsPython !ctags --languages=python --python-kinds=-i -R .
 " Command for figuring out highlight group
 map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 " Turn off syntax highlighting
 nnoremap <leader><leader> :noh<CR>
-" Shortcut for creating a new tab
+" Shortcuts for window
 nnoremap <C-w>t :tabnew<CR>
-" Shortcuts for creating windows
-nnoremap <leader>s :vsplit<CR>
-nnoremap <leader>j :split<CR>
+" Shorcut for stubbing out find command
+nnoremap <leader>s :find 
 " Formating a json file
 com! Formatjson %!python -m json.tool
 " Visually select pasted text
@@ -169,9 +164,9 @@ nnoremap <leader>df :diffput<CR>
 nnoremap _ [c
 nnoremap = ]c
 " Open folder of current file
-nnoremap <leader>n :e %:p:h<CR>
+nnoremap <leader>nn :e %:p:h<CR>
 " Open NERDTree
-nnoremap <leader>d :e.<CR>
+nnoremap <leader>nm :e.<CR>
 " Function for saving session
 function! SaveSession()
   :mksession! $SessionDir/session.vim
@@ -200,6 +195,11 @@ nnoremap <leader>,cutf8 :-1read $EditorDir/plugged/vim-options/snippets/python/c
 nnoremap <leader>,pudb :-1read $EditorDir/plugged/vim-options/snippets/python/pudb.py<CR>V
 nnoremap <leader>,pydef :-1read $EditorDir/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
 nnoremap <leader>,pyclass :-1read $EditorDir/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
+" Arrow keys move windows
+noremap <Up> <C-w>k
+noremap <Down> <C-w>j
+noremap <Left> <C-w>h
+noremap <Right> <C-w>l
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -460,6 +460,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/ale/autoload/ale.vim'))
   let g:ale_sign_column_always = 1
+  let g:ale_lint_on_insert_leave = 1
   highlight clear ALEErrorSign
   highlight clear ALEWarningSign
 endif
