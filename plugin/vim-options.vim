@@ -164,9 +164,9 @@ nnoremap <leader>df :diffput<CR>
 nnoremap _ [c
 nnoremap = ]c
 " Open folder of current file
-nnoremap <leader>nn :e %:p:h<CR>
+nnoremap <leader>n :e %:p:h<CR>
 " Open NERDTree
-nnoremap <leader>nm :e.<CR>
+nnoremap <leader>m :e.<CR>
 " Function for saving session
 function! SaveSession()
   :mksession! $SessionDir/session.vim
@@ -460,9 +460,20 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/ale/autoload/ale.vim'))
   let g:ale_sign_column_always = 1
-  let g:ale_lint_on_insert_leave = 1
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_python_mypy_options='--ignore-missing-imports'
   highlight clear ALEErrorSign
   highlight clear ALEWarningSign
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Deoplete
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/deoplete.nvim/plugin/deoplete.vim'))
+  let g:deoplete#enable_at_startup = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
