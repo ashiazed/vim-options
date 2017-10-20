@@ -115,6 +115,10 @@ if has('nvim')
   set completeopt=menu,preview,noinsert " default is menu,preview. Don't insert text until selection is made
   nnoremap <leader>er :call RestoreSession()<CR>
   nnoremap <leader>y :call system('nc -w 1 172.17.0.1 41401', @0)<CR>
+  tnoremap <A-h> <C-\><C-N><C-w>h
+  tnoremap <A-j> <C-\><C-N><C-w>j
+  tnoremap <A-k> <C-\><C-N><C-w>k
+  tnoremap <A-l> <C-\><C-N><C-w>l
 else
   let $EditorDir=$HOME.'/.vim/'
   let $SessionDir='.'
@@ -193,10 +197,6 @@ nnoremap <leader>,pudb :-1read $EditorDir/plugged/vim-options/snippets/python/pu
 nnoremap <leader>,pydef :-1read $EditorDir/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
 nnoremap <leader>,pyclass :-1read $EditorDir/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
 " Arrow keys move windows
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
 inoremap <Up> <C-\><C-N><C-w>h
 inoremap <Down> <C-\><C-N><C-w>j
 inoremap <Up> <C-\><C-N><C-w>k
