@@ -104,7 +104,7 @@ hi Normal guibg=NONE ctermbg=NONE
 " Vim vs Neovim settings
 "-----------------------------------------------------------------------------------------------------------------------
 if has('nvim')
-  let $HOME='.vimcache'
+  let $HOME='/root/.vimcache'
   let $EditorDir='/root/.config/nvim/'
   let $SessionDir='.vimcache'
 	silent! execute '!mkdir -p .vimcache/backup'
@@ -150,7 +150,8 @@ nnoremap <leader><leader> :noh<CR>
 " Shortcuts for window
 nnoremap <C-w>t :tabnew<CR>
 " Shorcut for stubbing out find command
-nnoremap <leader>s :find 
+nnoremap <leader>s :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 " Formating a json file
 com! Formatjson %!python -m json.tool
 " Visually select pasted text
@@ -163,10 +164,6 @@ nnoremap <leader>dd :diffget<CR>
 nnoremap <leader>df :diffput<CR>
 nnoremap _ [c
 nnoremap = ]c
-" Open folder of current file
-nnoremap <leader>n :e %:p:h<CR>
-" Open NERDTree
-nnoremap <leader>m :e.<CR>
 " Function for saving session
 function! SaveSession()
   :mksession! $SessionDir/session.vim
@@ -196,6 +193,14 @@ nnoremap <leader>,pudb :-1read $EditorDir/plugged/vim-options/snippets/python/pu
 nnoremap <leader>,pydef :-1read $EditorDir/plugged/vim-options/snippets/python/pydef.py<CR>/jump<CR>V12j
 nnoremap <leader>,pyclass :-1read $EditorDir/plugged/vim-options/snippets/python/pyclass.py<CR>/jump<CR>
 " Arrow keys move windows
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <Up> <C-\><C-N><C-w>h
+inoremap <Down> <C-\><C-N><C-w>j
+inoremap <Up> <C-\><C-N><C-w>k
+inoremap <Right> <C-\><C-N><C-w>l
 noremap <Up> <C-w>k
 noremap <Down> <C-w>j
 noremap <Left> <C-w>h
@@ -293,28 +298,6 @@ endif
 
 
 "-----------------------------------------------------------------------------------------------------------------------
-" Nerdtree Plugin
-"-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob($EditorDir.'plugged/nerdtree/plugin/NERD_tree.vim'))
-  " Disable ? do I can fucking reverse search
-  :autocmd FileType nerdtree silent! nunmap <buffer> ?
-	let g:NERDTreeShowLineNumbers=1
-	let g:NERDTreeDirArrows=0
-	let g:NERDTreeWinSize = 40
-	let g:NERDTreeIgnore = ['\.pyc$']
-	let g:NERDTreeDirArrows = 1
-	let g:NERDTreeDirArrowExpandable = '▸'
-	let g:NERDTreeDirArrowCollapsible = '▾'
-	let g:NERDTreeMapOpenSplit = 's'
-	let g:NERDTreeMapPreviewSplit = 'gs'
-	let g:NERDTreeMapOpenVSplit = 'v'
-	let g:NERDTreeMapPreviewVSplit = 'gv'
-endif
-"-----------------------------------------------------------------------------------------------------------------------
- 
-
-
-"-----------------------------------------------------------------------------------------------------------------------
 " Markdown
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/vim-markdown/indent/markdown.vim'))
@@ -329,44 +312,6 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/python-syntax/syntax/python.vim'))
   let python_highlight_all = 1
-endif
-"-----------------------------------------------------------------------------------------------------------------------
-
-
-
-"-----------------------------------------------------------------------------------------------------------------------
-" Syntastic
-"-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
-  let g:syntastic_php_checkers = ['php', 'phpcs']
-  let g:syntastic_javascript_checkers = ['eslint']
-  let g:syntastic_python_checkers = ['pyton3', 'flake8', 'mypy']
-  let g:syntastic_scss_checkers = ['sass_lint']
-  let g:syntastic_php_phpcs_args = "--standard=/root/PEARish.xml,PSR2,Symfony2"
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 0
-  let g:syntastic_check_on_wq = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_aggregate_errors = 1
-  let g:syntastic_mode_map = { 'mode': 'active' }
-  function! ToggleSyntasticMode()
-python << EOF
-import vim
-import ast
-value = dict(vim.eval('g:syntastic_mode_map'))
-vim.command('let l:syntastic_current_mode = \''+value['mode']+'\'')
-EOF
-    SyntasticToggleMode
-    if l:syntastic_current_mode == 'passive'
-      SyntasticCheck
-      let g:syntastic_check_on_wq = 0
-      let g:syntastic_check_on_open = 0
-    else 
-      let g:syntastic_check_on_wq = 1
-      let g:syntastic_check_on_open = 1
-    endif
-  endfunction
-  nnoremap <leader>a :call ToggleSyntasticMode()<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -474,6 +419,19 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/deoplete.nvim/plugin/deoplete.vim'))
   let g:deoplete#enable_at_startup = 1
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Ranger Intergration
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/ranger.vim/plugin/ranger.vim'))
+  let g:ranger_map_keys = 0
+  nnoremap <leader>n :Ranger<CR>
+  nnoremap [q :cprev<CR>
+  nnoremap ]q :cnext<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
