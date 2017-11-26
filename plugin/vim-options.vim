@@ -24,6 +24,7 @@ set splitright " New windows split to the right of current one
 set splitbelow " New windows split below the current one
 set sessionoptions+=globals " Append globals to the default session options
 set foldmethod=indent " Fold on Indent levels
+set foldlevel=99 " Open all folds when entering file
 " Custom status line
 set statusline=
 set statusline+=%1*\ %02c\                    " Color
