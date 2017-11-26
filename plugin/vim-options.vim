@@ -205,6 +205,9 @@ noremap <Up> <C-w>k
 noremap <Down> <C-w>j
 noremap <Left> <C-w>h
 noremap <Right> <C-w>l
+" Faster next functions
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -430,8 +433,9 @@ endif
 if !empty(glob($EditorDir.'plugged/ranger.vim/plugin/ranger.vim'))
   let g:ranger_map_keys = 0
   nnoremap <leader>n :Ranger<CR>
-  nnoremap [q :cprev<CR>
-  nnoremap ]q :cnext<CR>
+  " Ranger plugin disables relative numbering
+  " (https://github.com/francoiscabrol/ranger.vim/issues/29) 
+  nnoremap <leader>ds :set rnu<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
