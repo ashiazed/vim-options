@@ -74,8 +74,7 @@ highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
 highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
 highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=23
 " Set syntax of files that vim doesn't recognize
-au BufRead,BufNewFile *.twig set syntax=htmljinja
-au BufRead,BufNewFile *.html set syntax=htmljinja
+au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 au BufNewFile,BufRead *.yml set filetype=yaml
 au BufNewFile,BufRead *.sls set filetype=yaml
 au BufNewFile,BufRead *.inc set filetype=php
@@ -135,15 +134,6 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 " Custom functions
 "-----------------------------------------------------------------------------------------------------------------------
-" Taken from ins-completion docs. Tab if only whitespace, autocomplete if there is text
-function! CleverTab()
-   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-      return "\<Tab>"
-   else
-      return "\<C-N>"
-   endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
 " type jj to get out of insert mode
 inoremap jj <ESC>
 " Ctags for python project
@@ -419,10 +409,33 @@ endif
 
 
 "-----------------------------------------------------------------------------------------------------------------------
-" Deoplete
+" Tagbar
 "-----------------------------------------------------------------------------------------------------------------------
-if !empty(glob($EditorDir.'plugged/deoplete.nvim/plugin/deoplete.vim'))
-  let g:deoplete#enable_at_startup = 1
+if !empty(glob($EditorDir.'plugged/tagbar/plugin/tagbar.vim'))
+  nmap <F8> :TagbarToggle<CR>
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" RainbowParentheses
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/rainbow_parentheses.vim/plugin/rainbow_parentheses.vim'))
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" SuperTab Plugin
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/supertab/plugin/supertab.vim'))
+  let g:SuperTabDefaultCompletionType = "<c-n>"
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
