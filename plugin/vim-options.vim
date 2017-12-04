@@ -213,9 +213,12 @@ if !empty(glob($EditorDir.'plugged/ack.vim/plugin/ack.vim'))
     let term = input('Search: ')
     call inputrestore()
     if !empty(term)
-        execute "Ack! '" . term . "'"
+        execute "Ack! " . term
     endif
   endfunction
+  " Setting better default settings
+  let g:ackprg =
+      \ "ack -s -H --nocolor --nogroup --column --ignore-dir=.vimcache/ --ignore-dir=migrations/ --ignore-dir=.mypy_cache/ --ignore-file=is:tags --nojs --nocss --nosass"
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
