@@ -145,8 +145,10 @@ nnoremap <leader><leader> :noh<CR>
 " Shortcuts for window
 nnoremap <C-w>t :tabnew<CR>
 " Shorcut for stubbing out find command
+" should be in fzf command block
 nnoremap <leader>s :Files<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Tags<CR>
 " Formating a json file
 com! Formatjson %!python -m json.tool
 " Visually select pasted text
@@ -327,7 +329,6 @@ if !empty(glob($EditorDir.'plugged/taboo.vim/plugin/taboo.vim'))
       execute ":TabooRename " . term
     endif
   endfunction
-  nnoremap <leader>r :call RenameTab()<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -416,6 +417,7 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/tagbar/plugin/tagbar.vim'))
   nmap <F8> :TagbarToggle<CR>
+  let g:tagbar_foldlevel = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -439,6 +441,35 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/supertab/plugin/supertab.vim'))
   let g:SuperTabDefaultCompletionType = "<c-n>"
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Pymode
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/python-mode/plugin/pymode.vim'))
+  " I like my coloring better
+  let g:pymode_options_colorcolumn = 0
+  let g:pymode_warnings = 1
+  let g:pymode_python = 'python3'
+  let g:pymode_breakpoint = 0
+  let g:pymode_lint = 0
+  let g:pymode_rope = 0
+  let g:pymode_doc_bind = '<c-k>'
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Dasht
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/vim-dasht/plugin/dasht.vim'))
+  nnoremap K :Dasht<Space>
+  let g:dasht_filetype_docsets = {}
+  let g:dasht_filetype_docsets['python'] = ['django', 'python_3']
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
