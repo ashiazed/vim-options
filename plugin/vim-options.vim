@@ -201,6 +201,9 @@ noremap <Right> <C-w>l
 " Faster next functions
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
+" Autocomplete popup mappings
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -220,7 +223,7 @@ if !empty(glob($EditorDir.'plugged/ack.vim/plugin/ack.vim'))
   endfunction
   " Setting better default settings
   let g:ackprg =
-      \ "ack -s -H --nocolor --nogroup --column --ignore-dir=.vimcache/ --ignore-dir=migrations/ --ignore-dir=.mypy_cache/ --ignore-file=is:tags --nojs --nocss --nosass"
+      \ "ack -s -H --nocolor --nogroup --column --ignore-dir=.venv/ --ignore-dir=.vimcache/ --ignore-dir=migrations/ --ignore-dir=.mypy_cache/ --ignore-file=is:tags --nojs --nocss --nosass"
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
