@@ -202,7 +202,6 @@ noremap <Right> <C-w>l
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
 " Autocomplete popup mappings
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "-----------------------------------------------------------------------------------------------------------------------
 
