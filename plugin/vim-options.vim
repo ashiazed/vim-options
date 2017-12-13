@@ -119,6 +119,9 @@ if has('nvim')
   tnoremap <A-j> <C-\><C-N><C-w>j
   tnoremap <A-k> <C-\><C-N><C-w>k
   tnoremap <A-l> <C-\><C-N><C-w>l
+  tnoremap <ESC> <C-\><C-N>
+  nmap <F6> <C-w>s<C-w>k:edit term://bash<CR>i
+  nmap <F7> <C-w>s<C-w>k:edit term://htop<CR><C-w>j
 else
   let $EditorDir=$HOME.'/.vim/'
   let $SessionDir='.'
@@ -404,9 +407,11 @@ endif
 " Ale
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/ale/autoload/ale.vim'))
+  let g:ale_lint_on_enter = 0
   let g:ale_sign_column_always = 1
   let g:ale_lint_on_text_changed = 'never'
   let g:ale_python_mypy_options='--ignore-missing-imports'
+  let g:ale_history_enabled = 0 
   highlight clear ALEErrorSign
   highlight clear ALEWarningSign
 endif
@@ -420,6 +425,7 @@ endif
 if !empty(glob($EditorDir.'plugged/tagbar/plugin/tagbar.vim'))
   nmap <F8> :TagbarToggle<CR>
   let g:tagbar_foldlevel = 1
+  autocmd VimEnter * nested :TagbarOpen
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
