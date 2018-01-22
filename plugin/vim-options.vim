@@ -332,8 +332,8 @@ if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_php_phpcs_args = "--standard=/root/PEARish.xml,PSR2,Symfony2"
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 0
-  let g:syntastic_check_on_wq = 1
-  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_check_on_open = 0
   let g:syntastic_aggregate_errors = 1
   let g:syntastic_mode_map = { 'mode': 'active' }
   function! ToggleSyntasticMode()
@@ -353,7 +353,8 @@ EOF
       let g:syntastic_check_on_open = 1
     endif
   endfunction
-  nnoremap <leader>a :call ToggleSyntasticMode()<CR>
+  " nnoremap <leader>a :call ToggleSyntasticMode()<CR>
+  nnoremap <leader>a :SyntasticCheck<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
