@@ -235,7 +235,7 @@ endif
 " Argwrap
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/vim-argwrap/plugin/argwrap.vim'))
-	nnoremap <silent> <leader>a :ArgWrap<CR>
+	nnoremap <silent> <leader>w :ArgWrap<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -316,6 +316,44 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/python-syntax/syntax/python.vim'))
   let python_highlight_all = 1
+endif
+"-----------------------------------------------------------------------------------------------------------------------
+
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Syntastic
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
+  let g:syntastic_php_checkers = ['php', 'phpcs']
+  let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_python_checkers = ['pyton3', 'flake8', 'mypy']
+  let g:syntastic_scss_checkers = ['sass_lint']
+  let g:syntastic_php_phpcs_args = "--standard=/root/PEARish.xml,PSR2,Symfony2"
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_wq = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_mode_map = { 'mode': 'active' }
+  function! ToggleSyntasticMode()
+python << EOF
+import vim
+import ast
+value = dict(vim.eval('g:syntastic_mode_map'))
+vim.command('let l:syntastic_current_mode = \''+value['mode']+'\'')
+EOF
+    SyntasticToggleMode
+    if l:syntastic_current_mode == 'passive'
+      SyntasticCheck
+      let g:syntastic_check_on_wq = 0
+      let g:syntastic_check_on_open = 0
+    else
+      let g:syntastic_check_on_wq = 1
+      let g:syntastic_check_on_open = 1
+    endif
+  endfunction
+  nnoremap <leader>a :call ToggleSyntasticMode()<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
