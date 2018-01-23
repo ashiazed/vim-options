@@ -206,6 +206,12 @@ nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
 " Autocomplete popup mappings
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+" Some formatting shortcuts
+nnoremap g1 V:s/\<./\u&/g<CR>:noh<CR>
+nnoremap g2 V:s/-/ /g<CR>:noh<CR>
+nnoremap g3 ^v$:s/\%V /-/g<CR>:noh<CR>
+nnoremap g4 V:s/ /_/g<CR>:noh<CR>
+nnoremap g5 ^v$:s/\%V /_/g<CR>:noh:<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 
 
@@ -330,7 +336,7 @@ if !empty(glob($EditorDir.'plugged/syntastic/plugin/syntastic.vim'))
   let g:syntastic_python_checkers = ['pyton3', 'flake8', 'mypy']
   let g:syntastic_scss_checkers = ['sass_lint']
   let g:syntastic_php_phpcs_args = "--standard=/root/PEARish.xml,PSR2,Symfony2"
-  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_always_populate_loc_list = 0
   let g:syntastic_auto_loc_list = 0
   let g:syntastic_check_on_wq = 0
   let g:syntastic_check_on_open = 0
