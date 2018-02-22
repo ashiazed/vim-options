@@ -511,6 +511,7 @@ if !empty(glob($EditorDir.'plugged/python-mode/plugin/pymode.vim'))
   let g:pymode_lint = 0
   let g:pymode_rope = 0
   let g:pymode_doc_bind = '<c-k>'
+  let g:pymode_motion = 0
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
