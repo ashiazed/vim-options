@@ -112,7 +112,7 @@ if has('nvim')
 	set backupdir=.vimcache/backup/
 	set directory=.vimcache/swp/
   let g:syntastic_python_python_exec = '/usr/bin/python3'
-  set completeopt=menu,preview,noinsert " default is menu,preview. Don't insert text until selection is made
+  set completeopt=menu,noinsert " default is menu,preview. Don't insert text until selection is made
   nnoremap <leader>er :call RestoreSession()<CR>
   nnoremap <leader>y :call system('nc -w 1 172.17.0.1 41401', @0)<CR>
   tnoremap <A-h> <C-\><C-N><C-w>h
