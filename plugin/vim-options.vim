@@ -120,6 +120,7 @@ if has('nvim')
   tnoremap <A-k> <C-\><C-N><C-w>k
   tnoremap <A-l> <C-\><C-N><C-w>l
   tnoremap <ESC> <C-\><C-N>
+  nmap <F5> :!isort %<CR>
   nmap <F6> <C-w>s<C-w>k:edit term://bash<CR>i
   nmap <F7> <C-w>s<C-w>k:edit term://htop<CR><C-w>j
 else
