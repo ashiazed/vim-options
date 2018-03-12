@@ -213,6 +213,30 @@ nnoremap g2 V:s/-/ /g<CR>:noh<CR>
 nnoremap g3 ^v$:s/\%V /-/g<CR>:noh<CR>
 nnoremap g4 V:s/ /_/g<CR>:noh<CR>
 nnoremap g5 ^v$:s/\%V /_/g<CR>:noh:<CR>
+function! WordsToChoices()
+  python3 << EOF
+import vim
+buf = vim.current.buffer
+(lnum1, col1) = buf.mark('<')
+(lnum2, col2) = buf.mark('>')
+lspaces = len(buf[lnum1]) - len(buf[lnum1].lstrip(' '))
+start_choices = lnum1 + (lnum2 - lnum1)
+end_choices = lnum2 + (lnum2 - lnum1)
+end_line = end_choices + 1
+choices_and_values = []
+for line_num in range(lnum1-1, lnum2):
+    word = buf[line_num].strip()
+    line = buf[line_num]
+    buf[line_num] = "{} = '{}'".format(line.upper(), word)
+    choices_and_values.append((word.upper(), "'{}'".format(word)))
+buf[lnum2] = '{}TEST_CHOICES = ('.format(' ' * lspaces)
+for line_num in range(start_choices + 1, end_choices + 2):
+    choice, value = choices_and_values.pop(0)
+    buf[line_num] = "{}({}, ({})),".format(' ' * (lspaces + 4), choice, value)
+buf[end_choices + 2] = '{})'.format(' ' * lspaces)
+EOF
+endfunction
+nnoremap <F4> `>o<ESC>p`]o<ESC>`<:call WordsToChoices()<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 
 
