@@ -245,6 +245,7 @@ nnoremap <F4> `>o<ESC>p`]o<ESC>`<:call WordsToChoices()<CR>
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/ack.vim/plugin/ack.vim'))
   nnoremap <leader>/ :call AckSearch()<CR>
+  noremap <leader>a :Ack <cword><cr>
   function! AckSearch()
     call inputsave()
     let term = input('Search: ')
@@ -384,7 +385,7 @@ EOF
     endif
   endfunction
   " nnoremap <leader>a :call ToggleSyntasticMode()<CR>
-  nnoremap <leader>a :SyntasticCheck<CR>
+  " nnoremap <leader>a :SyntasticCheck<CR>
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
