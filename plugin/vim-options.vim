@@ -45,6 +45,7 @@ autocmd FileType make setlocal tabstop=4 noexpandtab
 autocmd FileType scss setlocal tabstop=2
 autocmd FileType ledger setlocal tabstop=2
 autocmd FileType vim setlocal tabstop=2
+autocmd FileType mkd setlocal tw=80
 " Make netrw prettier
 let g:netrw_banner = 0  " Hide the banner
 let g:netrw_liststyle = 3     " Tree view
@@ -80,7 +81,7 @@ au BufNewFile,BufRead *.sls set filetype=yaml
 au BufNewFile,BufRead *.inc set filetype=php
 au BufNewFile,BufRead *.module set filetype=php
 au BufRead,BufNewFile *.ejs set syntax=htmljinja
-au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.md       set filetype=markdown
 " Highligh current cursorline
 hi CursorLineNR cterm=bold ctermfg=226
 " Status line colors  per mode 
@@ -566,6 +567,15 @@ if !empty(glob($EditorDir.'plugged/ranger.vim/plugin/ranger.vim'))
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
+
+
+"-----------------------------------------------------------------------------------------------------------------------
+" Pencil (Markdown files
+"-----------------------------------------------------------------------------------------------------------------------
+if !empty(glob($EditorDir.'plugged/vim-pencil/plugin/pencil.vim'))
+  autocmd FileType markdown,mk call pencil#init({'wrap': 'hard'})
+endif
+"-----------------------------------------------------------------------------------------------------------------------
 
 
 "-----------------------------------------------------------------------------------------------------------------------
