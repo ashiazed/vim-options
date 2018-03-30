@@ -186,6 +186,8 @@ nnoremap <leader>lb {jV}yGp10l{{jvEy}jvEpl
 nnoremap <leader>ln {jV}y}p10l
 " Jump down from line to replace dollar ammount
 nnoremap <leader>ld j^f$lC
+" After searching pull entry to current position
+nnoremap <leader>ly vapy<C-o>p{{jvEy}jvEpl
 " Snippets
 nnoremap <leader>,date :-1read !date +\%F<CR>
 nnoremap <leader>,fabfile :-1read $EditorDir/plugged/vim-options/snippets/python/fabfile.py<CR>
