@@ -512,6 +512,23 @@ if !empty(glob($EditorDir.'plugged/rainbow_parentheses.vim/plugin/rainbow_parent
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
+  let g:rbpt_colorpairs = [
+    \ ['brown',         'RoyalBlue3'],
+    \ ['darkblue',    'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ['magenta',     'SeaGreen3'],
+    \ ['yellow', 'SeaGreen3'],
+    \ ['blue',        'DarkOrchid3'],
+    \ ['gray',        'firebrick3'],
+    \ ['cyan',        'DarkOrchid3'],
+    \ ['darkred',     'firebrick3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['gray',        'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['red',       'SeaGreen3'],
+    \ ['darkcyan',    'DarkOrchid3'],
+    \ ['green',       'RoyalBlue3'],
+    \ ]
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
