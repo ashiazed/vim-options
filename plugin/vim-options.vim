@@ -10,7 +10,9 @@ set wildmenu " Turn on wildmenu for vim, Neovim defaults to on
 set incsearch " Shows results for '/' search as you are typing the search
 set hlsearch " After a '/' search, highlight the matches
 " Regular settings
-set path=** " Set path to look at all directories under current root
+" Don't be a fool, setting path will make all kinds of funky things happen
+" with the autocomplete
+"set path=** " Set path to look at all directories under current root
 set wildignore=*/app/cache,*/vendor,*/env,*.pyc,*/venv,*/__pycache__ " Wildmenu will ignore these folder/file types
 set expandtab " Expand tabs into spaces
 set tabstop=4 " Default to 4 spaces
@@ -207,8 +209,6 @@ noremap <Right> <C-w>l
 " Faster next functions
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
-" Autocomplete popup mappings
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 " Some formatting shortcuts
 nnoremap g1 V:s/\<./\u&/g<CR>:noh<CR>
 nnoremap g2 V:s/-/ /g<CR>:noh<CR>
