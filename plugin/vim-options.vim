@@ -221,10 +221,10 @@ endif
 " RainbowParentheses
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/rainbow_parentheses.vim/plugin/rainbow_parentheses.vim'))
-  au VimEnter * RainbowParenthesesToggle
-  au Syntax * RainbowParenthesesLoadRound
-  au Syntax * RainbowParenthesesLoadSquare
-  au Syntax * RainbowParenthesesLoadBraces
+  au VimEnter *.py RainbowParenthesesToggle
+  au Syntax *.py RainbowParenthesesLoadRound
+  au Syntax *.py RainbowParenthesesLoadSquare
+  au Syntax *.py RainbowParenthesesLoadBraces
   let g:rbpt_colorpairs = [
     \ ['brown',         'RoyalBlue3'],
     \ ['darkblue',    'DarkOrchid3'],
