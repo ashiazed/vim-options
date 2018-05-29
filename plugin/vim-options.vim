@@ -91,6 +91,10 @@ nnoremap <leader>ld j^f$lC
 nnoremap <leader>ly vapy<C-o>p{{jvEy}jvEpl
 " Accept current autocomplete suggestion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" Faster jumping for linting erros
+nnoremap [q :lprev<CR>
+nnoremap ]q :lnext<CR>
+
 
 
 
