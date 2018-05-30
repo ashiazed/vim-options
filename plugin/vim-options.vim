@@ -24,10 +24,10 @@ set statusline+=%2*\«                         " LEFT-POINTING DOUBLE ANGLE QUOT
 set statusline+=%2*\ %=\ %l/%L\ (%02p%%)\     " Rownumber/total (%)
 
 " Set spacing of filetypes
-autocmd FileType sh,python setlocal tabstop=4
-autocmd FileType make setlocal tabstop=4 noexpandtab
-autocmd FileType ledger setlocal tabstop=2
-autocmd FileType vim setlocal tabstop=2
+au FileType sh,python setlocal tabstop=4
+au FileType make setlocal tabstop=4 noexpandtab
+au FileType ledger setlocal tabstop=2
+au FileType vim setlocal tabstop=2
 
 " Setup colorscheme
 syntax enable 
@@ -42,8 +42,9 @@ highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=23
 
 " Highlight lines at 80 mark/120 mark
 highlight ColorColumn ctermbg=cyan
-autocmd FileType python call matchadd('ColorColumn', '\%81v', 100)
-autocmd FileType python call matchadd('Error', '\%121v', 100)
+au BufEnter *.py let w:m1=matchadd('ColorColumn', '\%81v', 100)
+au BufEnter *.py let w:m2=matchadd('Error', '\%121v', 100)
+au BufLeave *.py call clearmatches()
 
 " Neovim (Docker) vs Vim
 if has('nvim')
