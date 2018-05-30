@@ -14,6 +14,8 @@ set wildmode=list:full " wildmenu show list complete to first result
 set splitright " New windows split to the right of current one
 set splitbelow " New windows split below the current one
 set completeopt-=preview " Hide the preview/scratch window
+set path=** " Allow commands like 'gf' to find files
+set wildignore=*/app/cache,*/vendor,*/env,*.pyc,*/venv,*/__pycache__,*/venv " Ignore folders
 
 " Custom status line
 set statusline=
@@ -95,6 +97,12 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " Faster jumping for linting erros
 nnoremap [q :lprev<CR>
 nnoremap ]q :lnext<CR>
+" Set breakpoint in python
+noremap <leader>eb ofrom pudb import set_trace; set_trace()<ESC>
+" Vertical split instead of horiztonal
+noremap <c-w>f <c-w>f<c-w>H
+" <c-w>] uses path not tags file? 
+noremap <c-w>] <c-w>v<c-]><c-w>H
 
 
 
@@ -162,6 +170,8 @@ if !empty(glob($EditorDir.'plugged/fzf.vim/plugin/fzf.vim'))
   nnoremap <leader>fm :Marks<CR>
   nnoremap <leader>fc :Commits<CR>
   nnoremap <leader>fg :GFiles?<CR>
+  " Enable C-N and C-P to go backwards in history
+  let g:fzf_history_dir = $HOME.'.local/share/fzf-history'
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
@@ -176,11 +186,10 @@ if !empty(glob($EditorDir.'plugged/vim-indent-guides/plugin/indent_guides.vim'))
   let g:indent_guides_exclude_filetypes =['help', 'nerdtree']
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=235
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=237
-  autocmd FileType python :IndentGuidesEnable
-  autocmd FileType html :IndentGuidesEnable
-  autocmd FileType jinja :IndentGuidesEnable
+  au VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=235
+  au VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=237
+  au BufEnter *.py,*.html :IndentGuidesEnable 
+  au BufLeave *.py,*.html :IndentGuidesDisable
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
