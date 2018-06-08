@@ -26,10 +26,9 @@ set statusline+=%2*\«                         " LEFT-POINTING DOUBLE ANGLE QUOT
 set statusline+=%2*\ %=\ %l/%L\ (%02p%%)\     " Rownumber/total (%)
 
 " Set spacing of filetypes
+au FileType vim,ledger,html,htmldjango setlocal tabstop=2
 au FileType sh,python setlocal tabstop=4
 au FileType make setlocal tabstop=4 noexpandtab
-au FileType ledger setlocal tabstop=2
-au FileType vim setlocal tabstop=2
 
 " Setup colorscheme
 syntax enable 
@@ -103,6 +102,8 @@ noremap <leader>eb ofrom pudb import set_trace; set_trace()<ESC>
 noremap <c-w>f <c-w>f<c-w>H
 " <c-w>] uses path not tags file? 
 noremap <c-w>] <c-w>v<c-]><c-w>H
+" Run isort on file
+noremap <leader>ei :!isort %<CR>
 
 
 
