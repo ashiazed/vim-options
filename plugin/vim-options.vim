@@ -16,6 +16,8 @@ set splitbelow " New windows split below the current one
 set completeopt-=preview " Hide the preview/scratch window
 set path=** " Allow commands like 'gf' to find files
 set wildignore=*/app/cache,*/vendor,*/env,*.pyc,*/venv,*/__pycache__,*/venv " Ignore folders
+set sessionoptions+=globals " Append global variables to the default session options (Window Names)
+
 
 " Custom status line
 set statusline=
@@ -104,6 +106,13 @@ noremap <c-w>f <c-w>f<c-w>H
 noremap <c-w>] <c-w>v<c-]><c-w>H
 " Run isort on file
 noremap <leader>ei :!isort %<CR>
+" Session saving
+function! SaveSession()
+  :mksession! $SessionDir/session.vim
+  :echo 'Session Saved!'
+endfunction
+nnoremap <leader>ess :call SaveSession()<CR>
+nnoremap <leader>esr :source $SessionDir/session.vim<CR>
 
 
 
@@ -173,6 +182,8 @@ if !empty(glob($EditorDir.'plugged/fzf.vim/plugin/fzf.vim'))
   nnoremap <leader>fg :GFiles?<CR>
   " Enable C-N and C-P to go backwards in history
   let g:fzf_history_dir = $HOME.'.local/share/fzf-history'
+  " [Buffers] Jump to the existing window if possible
+  let g:fzf_buffers_jump = 1
 endif
 "-----------------------------------------------------------------------------------------------------------------------
 
