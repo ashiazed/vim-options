@@ -95,9 +95,11 @@ nnoremap <leader>ld j^f$lC
 nnoremap <leader>ly vapy<C-o>p{{jvEy}jvEpl
 " Accept current autocomplete suggestion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" Faster jumping for linting erros
+" Faster jumping for linting errors
 nnoremap [q :lprev<CR>
 nnoremap ]q :lnext<CR>
+nnoremap [w :cprev<CR>
+nnoremap ]w :cnext<CR>
 " Set breakpoint in python
 noremap <leader>eb ofrom pudb import set_trace; set_trace()<ESC>
 " Vertical split instead of horiztonal
@@ -277,6 +279,7 @@ endif
 " Pymode
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/python-mode/plugin/pymode.vim'))
+  let g:pymode_python = 'python3'
   let g:pymode_run = 1
   let g:pymode_indent = 1
   let g:pymode_motion = 1
@@ -298,7 +301,8 @@ endif
 "-----------------------------------------------------------------------------------------------------------------------
 if !empty(glob($EditorDir.'plugged/ranger.vim/plugin/ranger.vim'))
   let g:ranger_map_keys = 0
-  nnoremap <leader>n :Ranger<CR>
+  nnoremap <leader>m :Ranger<CR>
+  nnoremap <leader>n :RangerWorkingDirectory<CR>
   let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
 endif
 "-----------------------------------------------------------------------------------------------------------------------
