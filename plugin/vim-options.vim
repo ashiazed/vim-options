@@ -49,16 +49,10 @@ au BufEnter *.py let w:m1=matchadd('ColorColumn', '\%81v', 100)
 au BufEnter *.py let w:m2=matchadd('Error', '\%121v', 100)
 au BufLeave *.py call clearmatches()
 
-" Neovim (Docker) vs Vim
-if has('nvim')
-  let $HOME='/root/.vimcache'
-  let $EditorDir='/root/.config/nvim/'
-  let $SessionDir='.vimcache'
-	silent! execute '!mkdir -p .vimcache/backup'
-else
-  let $EditorDir=$HOME.'/.vim/'
-  let $SessionDir='.'
-endif
+let $HOME='~/.vimcache'
+let $EditorDir='~/.config/nvim/'
+let $SessionDir='.vimcache'
+     silent! execute '!mkdir -p .vimcache/backup'
 
 " My Shorcuts
 let mapleader="\<Space>"
